@@ -631,7 +631,7 @@ export default function Page() {
         </div>
       </section>
 
-        <section className="w-full py-0 bg-white">
+         <section className="w-full py-6 md:py-10 bg-white">
         <div className="max-w-[1250px] mx-auto px-6">
 
           {/* Add space-y-10 for mobile spacing */}
