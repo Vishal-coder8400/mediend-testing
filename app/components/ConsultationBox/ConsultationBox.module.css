@@ -1,0 +1,45 @@
+.box {
+  background-image: url("/assets/overlay.png") !important;
+  background-position: bottom !important;
+  background-repeat: no-repeat !important;
+  background-color: #f8faff !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: space-around !important;
+  border: 1px solid #d4d8e2 !important;
+  border-radius: 8px !important;
+  margin: 60px 10px !important;
+  padding: 40px 20px 0 20px !important;
+  max-width: fit-content !important;
+  @media (min-width: 470px) {
+    margin: 60px auto !important;
+  }
+  @media (min-width: 1000px) {
+    flex-direction: row !important;
+    padding: 0 20px !important;
+  }
+}
+.img {
+  width: 261px !important;
+  height: 250px !important;
+  gap: 0px !important;
+  order: 3 !important;
+  @media (min-width: 1000px) {
+    order: 0 !important;
+  }
+}
+
+.infoBox {
+  max-width: 421px !important;
+  text-align: center !important;
+  padding: 60px 0 !important;
+  @media (min-width: 1000px) {
+    padding: 20px !important;
+  }
+}
+
+.btnBox {
+  display: flex !important;
+  flex-direction: column !important;
+}

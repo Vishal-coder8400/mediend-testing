@@ -1,0 +1,56 @@
+.main {
+  background-image: url("/assets/overlay.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: bottom !important;
+  background-color: #f8faff !important;
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  justify-content: space-around !important;
+  border: 1px solid #d4d8e2 !important;
+  border-radius: 8px !important;
+  margin: 60px 0 !important;
+  padding: 50px 0 !important;
+  @media (min-width: 1100px) {
+    padding: 50px 20px !important;
+  }
+}
+
+.data__box {
+  max-width: 428px !important;
+  margin: 40px 20px 80px 20px !important;
+  text-align: center !important;
+  @media (min-width: 1100px) {
+    margin: 20px !important;
+    text-align: left !important;
+  }
+}
+
+.info__box {
+  position: relative !important;
+  max-width: 260px !important;
+  background-color: #fff !important;
+  border: 1px solid #e1e4ed !important;
+  border-radius: 8px !important;
+  text-align: center !important;
+  padding: 20px !important;
+  margin: 10px !important;
+  z-index: 10 !important;
+}
+
+.main__title {
+  font-size: 32px !important;
+  @media (min-width: 800px) {
+    font-size: 48px !important;
+  }
+}
+
+.info__index {
+  position: absolute !important;
+  color: #d9dbe9 !important;
+  font-size: 60px !important;
+  font-weight: 600 !important;
+  left: -27px !important;
+  top: -59px !important;
+  z-index: 0 !important;
+}

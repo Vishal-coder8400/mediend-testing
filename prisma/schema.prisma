@@ -1,0 +1,96 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+enum Gender {
+  Male
+  Female
+  Other
+}
+
+enum AdmissionStatus {
+  Pending
+  Admitted
+  Discharged
+  Cancelled
+}
+
+model Admission {
+  id              String          @id @default(auto()) @map("_id") @db.ObjectId
+  patientId       String          @unique  // This replaces the custom id field from Mongoose
+  patientName     String
+  gender          Gender
+  hospital        String
+  doctor          String
+  roomEligibility String
+  admissionTime   DateTime
+  dischargeTime   DateTime
+  paymentMode     String
+  tentativeAmount String
+  status          AdmissionStatus @default(Pending)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@index([patientName])
+  @@index([hospital])
+  @@index([doctor])
+  @@index([status])
+}
+
+model User {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  email     String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Appointment {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  phone       String
+  disease     String
+  city        String
+  countryCode String
+  createdAt   DateTime @default(now())
+}
+
+model Consultation {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  phone     String
+  disease   String
+  createdAt DateTime @default(now())
+}
+
+model HospitalOnboarding {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  name        String
+  hospitalName String
+  phone       String
+  city        String
+  createdAt   DateTime @default(now())
+}
+
+model DoctorOnboarding {
+  id                  String   @id @default(auto()) @map("_id") @db.ObjectId
+  name                String
+  email               String
+  phone               String
+  specialization      String
+  degree              String
+  experienceBeforePG  String
+  experienceAfterPG   String
+  cvUrl               String   // URL to the uploaded CV file
+  createdAt           DateTime @default(now())
+}

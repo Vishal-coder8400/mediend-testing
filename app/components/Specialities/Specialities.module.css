@@ -1,0 +1,40 @@
+.box {
+  border: 1px solid #e1e4ed !important;
+  border-radius: 8px !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  padding: 15px !important;
+  max-width: 327px !important;
+  margin: 0 auto !important;
+  @media (min-width: 800px) {
+    max-width: max-content !important;
+  }
+}
+
+.main__title {
+  font-size: 32px !important;
+  color: #1d3557 !important;
+  @media (min-width: 800px) {
+    font-size: 48px !important;
+  }
+}
+
+.box__info {
+  font-size: 14px !important;
+  display: -webkit-box !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  @media (min-width: 800px) {
+    font-size: 16px !important;
+  }
+}
+.textbox {
+  margin: 0 20px !important;
+}
+
+.btnBox {
+  display: flex !important;
+  justify-content: end !important;
+}

@@ -1,0 +1,63 @@
+.main {
+  display: flex !important;
+  justify-content: space-between !important;
+  padding: 20px !important;
+}
+
+.divider {
+  width: 1px !important;
+  border: 1px dotted #6c7d88 !important;
+  opacity: 1 !important;
+  margin: 0 10px !important;
+  /* height: 100% !important; */
+}
+.main__content {
+  width: 45% !important;
+}
+
+.main__form {
+  flex: 1 !important;
+  @media (min-width: 1000px) {
+    width: 45% !important;
+  }
+}
+
+.stats__main {
+  text-align: center !important;
+  background-color: #eff6ff !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  padding: 20px !important;
+  border-radius: 12px !important;
+}
+
+.input__input {
+  padding: 20px 10px !important;
+  border-radius: 10px !important;
+}
+
+.placeholder {
+  color: #333333 !important;
+}
+
+.stepIcon {
+  border: none !important;
+  background-color: #fff !important;
+}
+.stepIcon:where([data-completed]) {
+  border: none !important;
+  background-color: #fff !important;
+}
+
+.stepCompletedIcon {
+  color: #000 !important;
+}
+
+.verticalSeparator {
+  border: 1px dotted #000 !important;
+}
+
+.stepper_completed_icon {
+  width: 30px !important;
+  height: 30px !important;
+}

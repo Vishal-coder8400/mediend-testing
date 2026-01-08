@@ -1,0 +1,9 @@
+.input__root {
+  border: 1px solid #d7dedd !important;
+  border-radius: 6px !important;
+}
+
+.label {
+  color: #333333 !important;
+  font-size: 10px !important;
+}

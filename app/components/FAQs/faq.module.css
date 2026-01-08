@@ -1,0 +1,56 @@
+.accordion__main {
+  background-image: url("/assets/overlay.png") !important;
+  background-position: bottom !important;
+  background-repeat: no-repeat !important;
+  background-color: #f8faff !important;
+  border-radius: 10px !important;
+  border: 1px solid #d4d8e2 !important;
+}
+
+.ads {
+  background-image: none !important;
+  background-color: #fff !important;
+  border: none !important;
+}
+
+.item {
+  margin: 20px 0 !important;
+  background-color: #fff !important;
+  border: 1px solid #d4d8e2 !important;
+  border-radius: 10px !important;
+  box-shadow: 0px 5px 16px 0px #080f340f !important;
+  padding: 10px !important;
+  @media (min-width: 500px) {
+    padding: 20px !important;
+  }
+}
+
+.activeItem {
+  border: 2px solid #d4d8e2 !important;
+  box-shadow: 0px 6px 16px 0px #4a3aff30 !important;
+}
+
+.chevron {
+  width: 30px !important;
+  height: 30px !important;
+  border-radius: 50% !important;
+  border: 1px solid #d4d8e2 !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  transform: rotate(-90deg) !important;
+  @media (min-width: 500px) {
+    width: 50px !important;
+    height: 50px !important;
+  }
+}
+
+.item[data-active] .chevron {
+  transform: rotate(360deg) !important;
+  background-color: #14967f !important;
+  /* padding: 10px !important; */
+}
+
+.chevron__icon {
+  width: 15px !important;
+}

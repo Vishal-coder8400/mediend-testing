@@ -1,0 +1,31 @@
+.main {
+  text-align: center !important;
+}
+
+.heading {
+  color: #1d3557 !important;
+  margin: 30px 0 !important;
+  font-size: 24px !important;
+  @media (min-width: 700px) {
+    font-size: 32px !important;
+  }
+  @media (min-width: 1100px) {
+    font-size: 48px !important;
+  }
+}
+
+.mainBox {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+}
+.box {
+  width: 260px !important;
+  max-width: 260px !important;
+  border: 1px solid #e1e4ed !important;
+  border-radius: 10px !important;
+  padding: 30px !important;
+  text-align: center !important;
+  margin: 20px !important;
+}

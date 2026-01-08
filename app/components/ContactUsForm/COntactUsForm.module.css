@@ -1,0 +1,11 @@
+.label {
+  color: #f2f2f2 !important;
+}
+
+.input {
+  background-color: #1a191a !important;
+  border: none !important;
+  border-bottom: 1px solid #f2f2f2 !important;
+  border-radius: 0 !important;
+  color: #f2f2f2 !important;
+}

@@ -1,0 +1,26 @@
+# Node.js
+# Build a general Node.js project with npm.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+  - server
+
+jobs:
+
+  - job: Deploy
+    displayName: "Deploy to AWS EC2"
+    pool:
+      name: "Default"
+    steps:
+      - task: SSH@0
+        inputs:
+          sshEndpoint: "Kundkund"
+          runOptions: "inline"
+          inline: |
+            cd /var/www/html/mediend
+            rm -rf package-lock.json
+            git pull -q origin server
+            npm install --legacy-peer-deps
+            npm run build > /dev/null 2>&1
+            pm2 restart 1

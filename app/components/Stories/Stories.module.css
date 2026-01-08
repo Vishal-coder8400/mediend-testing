@@ -1,0 +1,42 @@
+.main {
+  background-image: url("/assets/stories_overlay.png") !important;
+  background-color: #f8faff !important;
+  border: 1px solid #d4d8e2 !important;
+}
+.carousel_main {
+  margin: 0 auto !important;
+  max-width: 333px !important;
+  @media (min-width: 800px) {
+    max-width: 995px !important;
+  }
+}
+.carousel__root {
+  margin: 0 10px !important;
+}
+.box {
+  max-width: 324px !important;
+  min-height: 350px !important;
+  border: 1px solid #e1e4ed !important;
+  border-radius: 8px !important;
+  background-color: #fff !important;
+  margin: 20px !important;
+  text-align: center !important;
+  padding: 20px !important;
+
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: space-around !important;
+  @media (min-width: 900px) {
+    width: 460px !important;
+    max-width: 460px !important;
+  }
+}
+
+.title {
+  color: #1d3557 !important;
+  font-size: 32px !important;
+  @media (min-width: 900px) {
+    font-size: 48px !important;
+  }
+}

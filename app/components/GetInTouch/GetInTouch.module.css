@@ -1,0 +1,114 @@
+.row {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  border-radius: 8px !important;
+  margin: 40px 0 !important;
+  @media (min-width: 800px) {
+    flex-direction: row !important;
+    border-radius: 0px !important;
+    margin: 0 !important;
+  }
+}
+.card_1 {
+  height: 496px !important;
+  width: 100% !important;
+  background-image: url("/assets/getintouch.png") !important;
+  background-repeat: no-repeat !important;
+  background-position: center !important;
+  background-size: cover !important;
+  display: flex !important;
+  align-items: end !important;
+  @media (min-width: 800px) {
+    width: 50% !important;
+    height: 626px !important;
+  }
+}
+
+.card_1_text {
+  backdrop-filter: blur(20px) !important;
+  color: #fff !important;
+  padding: 20px !important;
+  font-weight: 500 !important;
+  font-size: 14px !important;
+  @media (min-width: 500px) {
+    font-size: 20px !important;
+  }
+  @media (min-width: 800px) {
+    padding: 40px !important;
+  }
+}
+
+.card_2 {
+  height: 496px !important;
+  width: 100% !important;
+  background-color: #062d4c !important;
+  padding: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  @media (min-width: 400px) {
+    padding: 40px !important;
+  }
+
+  @media (min-width: 800px) {
+    width: 50% !important;
+    height: auto !important;
+  }
+
+  @media (min-width: 1000px) {
+    padding: 80px !important;
+  }
+}
+
+.card_4 {
+  background-image: url("/assets/getintouch_2.jpg") !important;
+}
+.text_box_2 {
+  font-size: 32px !important;
+  font-weight: 600 !important;
+  color: #fff !important;
+  @media (min-width: 1000px) {
+    line-height: 54px !important;
+    font-size: 48px !important;
+  }
+}
+
+.modal__header {
+  background-color: #062D4C !important;
+  position: relative !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid #062D4C !important;
+}
+
+.modal__header_content {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between logo and text */
+}
+
+.modal__logo {
+  width: 40px; /* Adjust logo size */
+  height: 40px; /* Adjust logo size */
+}
+
+.modal__title {
+  color: #fff !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  margin: 0; /* Remove default margin */
+}
+
+.modal__close {
+  color: #fff !important;
+  width: 50px !important;
+  height: 50px !important;
+}
+
+.modal__close:hover {
+  background-color: transparent !important;
+  opacity: 0.8;
+}
