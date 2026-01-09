@@ -847,6 +847,7 @@ export default function Page() {
           </h2>
 
           <button
+          onClick={() => setOpenAppointment(true)}
             className="
               bg-black text-white font-semibold
               px-5 py-2.5 md:px-8 md:py-3
