@@ -1,8 +1,36 @@
 "use client"
-import React from 'react';
+import { useState } from "react";
+import { Modal } from "@mantine/core";
+
+
+
 import FAQ from './faq';
+import Appointment from "../../components/Appointment/Appointment";
 
 export default function Page() {
+// ===== HERO FORM STATE =====
+  const [heroForm, setHeroForm] = useState({ name: "", phone: "" });
+  const [heroSubmitted, setHeroSubmitted] = useState(false);
+  const [openAppointment, setOpenAppointment] = useState(false);
+
+  // ===== APPOINTMENT FORM STATE =====
+  const [appointmentForm, setAppointmentForm] = useState({
+    name: "",
+    phone: "",
+  });
+  const [appointmentSubmitted, setAppointmentSubmitted] = useState(false);
+  // ===== COMMON SUBMIT FUNCTION =====
+  const submitToSanity = async (data: any) => {
+    try {
+      await fetch("/api/post-consultation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+    } catch (error) {
+      console.error("Submission failed", error);
+    }
+  };
 
   return (
     <>
@@ -19,7 +47,9 @@ export default function Page() {
           />
 
           {/* Right Button - Teal */}
-          <button className="bg-[#14967F] text-white px-4 py-1.5 rounded-full text-[11px] md:text-xs font-bold uppercase tracking-wide shadow-md">
+          <button
+           onClick={() => setOpenAppointment(true)}
+          className="bg-[#14967F] text-white px-4 py-1.5 rounded-full text-[11px] md:text-xs font-bold uppercase tracking-wide shadow-md">
             Book Now
           </button>
         </div>
@@ -42,72 +72,57 @@ export default function Page() {
   <div className="col-span-1 flex flex-col justify-start mt-0">
 
     {/* Heading — EXACT mobile match */}
-    <h1
-      className="
-       font-extrabold text-black
+     <h1
+  className="
+    font-extrabold text-black
 
-    /* FLUID MOBILE HEADING */
+    /* MOBILE — DO NOT TOUCH */
     text-[clamp(15px,4.2vw,18px)]
     leading-[1.28]
     mb-2
 
-    /* DESKTOP (unchanged) */
-    md:text-[32px]
-    lg:text-[42px]
-    md:leading-[1.1]
+    /* DESKTOP FIX */
+    md:text-[30px]        /* ↓ reduced from 32 */
+    lg:text-[38px]        /* ↓ reduced from 42 */
+    md:leading-[1.15]
     md:mb-4
-      "
-    >
-      Permanent Surgery for
-      <br />
-      Lipoma in{" "}
-      <span className="text-[#2563EB]">Delhi</span>
-    </h1>
+    md:max-w-[520px]      /* 👈 forces 2-line wrap */
+  "
+>
+  Permanent Surgery for
+  <br className="hidden md:block" />
+  Lipoma in{" "}
+  <span className="text-[#2563EB]">Delh</span>
+</h1>
+
 
     {/* Bullet List */}
-    <ul className="space-y-1 text-black mb-3">
+ <ul className="space-y-2 text-black mb-3">
 
-  <li className="flex items-start gap-2">
-    <span className="text-[#14967F] text-[14px] leading-none mt-[6px]">●</span>
-    <span
-      className="
-        font-medium
-        text-[clamp(12px,3.4vw,13px)]   /* ✅ fluid text */
-        leading-[1.35]
-        whitespace-nowrap               /* ✅ force single line */
-      "
+  {[
+    "50% Off on Surgery",
+    "30 Minutes Procedure",
+    "All Insurance Accepted"
+  ].map((text, i) => (
+    <li
+      key={i}
+      className="flex items-center gap-2"
     >
-     50% Off on Surgery
-    </span>
-  </li>
+      {/* PERFECT DOT */}
+      <span className="w-[6px] h-[6px] bg-[#14967F] rounded-full shrink-0" />
 
-  <li className="flex items-start gap-2">
-    <span className="text-[#14967F] text-[14px] leading-none mt-[6px]">●</span>
-    <span
-      className="
-        font-medium
-        text-[clamp(12px,3.4vw,13px)]
-        leading-[1.35]
-        whitespace-nowrap
-      "
-    >
-     30 Minutes Procedure
-    </span>
-  </li>
-
-  <li className="flex items-start gap-2">
-    <span className="text-[#14967F] text-[14px] leading-none mt-[6px]">●</span>
-    <span
-      className="
-        font-medium
-        text-[clamp(12px,3.4vw,13px)]
-        leading-[1.35]
-        whitespace-nowrap
-      "
-    >
-     All Insurance Accepted
-    </span>
-  </li>
+      {/* TEXT */}
+      <span
+        className="
+          font-medium
+          text-[clamp(12px,3.4vw,13px)]
+          leading-[1.35]
+        "
+      >
+        {text}
+      </span>
+    </li>
+  ))}
 
 </ul>
 
@@ -175,24 +190,49 @@ export default function Page() {
     border border-teal-100 lg:border-none
   ">
     <h2 className="text-[18px] lg:text-2xl font-extrabold text-black mb-3 text-center lg:text-left">
-      Get Rid of Lipoma
+      Surgery Cost Calculator
     </h2>
 
     <input
       type="text"
       placeholder="Your Name *"
+       value={heroForm.name}
+            onChange={(e) =>
+              setHeroForm({ ...heroForm, name: e.target.value })
+            }
       className="w-full bg-white border border-gray-300 rounded-full px-4 py-3 mb-3 outline-none text-sm text-gray-700 focus:border-[#14967F] shadow-sm"
     />
 
     <input
       type="text"
       placeholder="Mobile Number *"
+      value={heroForm.phone}
+            onChange={(e) =>
+              setHeroForm({ ...heroForm, phone: e.target.value })
+            }
       className="w-full bg-white border border-gray-300 rounded-full px-4 py-3 mb-4 outline-none text-sm text-gray-700 focus:border-[#14967F] shadow-sm"
     />
 
-    <button className="w-full bg-[#14967F] text-white font-bold py-3 rounded-full text-[16px] shadow hover:opacity-90 transition">
-      Get a Call Back
+    <button
+    onClick={async () => {
+              if (!heroForm.name || !heroForm.phone) return;
+              await submitToSanity({
+                name: heroForm.name,
+                phone: heroForm.phone,
+                disease: "Lipoma",
+                source: "lipoma-calculator",
+              });
+              setHeroSubmitted(true);
+              setHeroForm({ name: "", phone: "" });
+            }}
+    className="w-full bg-[#14967F] text-white font-bold py-3 rounded-full text-[16px] shadow hover:opacity-90 transition">
+      Calculate Now
     </button>
+     {heroSubmitted && (
+            <p className="mt-2 text-center text-sm text-green-600 font-medium">
+              ✅ Thank you! Our team will contact you shortly.
+            </p>
+          )}
   </div>
 
 </section>
@@ -335,13 +375,20 @@ export default function Page() {
             </div>
 
             {/* RIGHT FORM */}
-            <div className="flex justify-center lg:justify-end">
+              <div className="flex justify-center lg:justify-end">
               <div className="w-full max-w-[520px] bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.1)] p-10 border border-gray-100">
 
                 <label className="text-sm font-medium text-gray-700 mb-1 block">Your Name *</label>
                 <input
                   type="text"
                   placeholder="Your name"
+                  value={appointmentForm.name}
+                 onChange={(e) =>
+                  setAppointmentForm({
+                  ...appointmentForm,
+                  name: e.target.value,
+                })
+              }
                   className="w-full border border-gray-300 rounded-xl px-4 py-3 mb-5 outline-none shadow-sm focus:border-[#14967F]"
                 />
 
@@ -349,15 +396,39 @@ export default function Page() {
                 <input
                   type="text"
                   placeholder="+91 1112223333"
+                   value={appointmentForm.phone}
+              onChange={(e) =>
+                setAppointmentForm({
+                  ...appointmentForm,
+                  phone: e.target.value,
+                })
+              }
                   className="w-full border border-gray-300 rounded-xl px-4 py-3 mb-6 outline-none shadow-sm focus:border-[#14967F]"
                 />
 
-                <button className="w-full bg-[#14967F] text-white font-semibold py-3 rounded-xl text-lg shadow hover:opacity-95 transition">
+                <button 
+                 onClick={async () => {
+                if (!appointmentForm.name || !appointmentForm.phone) return;
+                await submitToSanity({
+                  name: appointmentForm.name,
+                  phone: appointmentForm.phone,
+                  disease: "Lipoma",
+                  source: "lipoma-appointment",
+                });
+                setAppointmentSubmitted(true);
+                setAppointmentForm({ name: "", phone: "" });
+              }}
+                className="w-full bg-[#14967F] text-white font-semibold py-3 rounded-xl text-lg shadow hover:opacity-95 transition">
                   Book Appointment Now
                 </button>
-
+ {appointmentSubmitted && (
+              <p className="mt-3 text-center text-sm text-green-600 font-medium">
+                ✅ Appointment request submitted successfully.
+              </p>
+            )}
               </div>
             </div>
+
 
           </div>
 
@@ -812,6 +883,7 @@ export default function Page() {
 
 
 {/* 🌟 3. GET FREE DOCTOR CONSULTATION SECTION */}
+{!openAppointment && (
 <section
   className="
     w-full bg-[#062D4C]
@@ -839,6 +911,7 @@ export default function Page() {
     </h2>
 
     <button
+     onClick={() => setOpenAppointment(true)}
       className="
         bg-[#14967F] text-white font-semibold
         px-6 py-2.5
@@ -852,7 +925,31 @@ export default function Page() {
     </button>
   </div>
 </section>
+)}
 
+<Modal
+  opened={openAppointment}
+  onClose={() => setOpenAppointment(false)}
+  centered
+  size="xl"
+  padding={0}
+  radius="lg"
+  withCloseButton={false}
+  overlayProps={{ blur: 3 }}
+  styles={{
+    content: {
+      maxHeight: "90vh",
+      overflow: "hidden",
+    },
+    body: {
+      padding: 0,
+      maxHeight: "90vh",
+      overflowY: "auto",
+    },
+  }}
+>
+  <Appointment onSuccess={() => setOpenAppointment(false)} />
+</Modal>
 
     </>
   );

@@ -1,8 +1,36 @@
 "use client"
-import React from 'react';
+import { useState } from "react";
+import { Modal } from "@mantine/core";
+
+
+
 import FAQ from './faq';
+import Appointment from "../../components/Appointment/Appointment";
 
 export default function Page() {
+// ===== HERO FORM STATE =====
+  const [heroForm, setHeroForm] = useState({ name: "", phone: "" });
+  const [heroSubmitted, setHeroSubmitted] = useState(false);
+  const [openAppointment, setOpenAppointment] = useState(false);
+
+  // ===== APPOINTMENT FORM STATE =====
+  const [appointmentForm, setAppointmentForm] = useState({
+    name: "",
+    phone: "",
+  });
+  const [appointmentSubmitted, setAppointmentSubmitted] = useState(false);
+  // ===== COMMON SUBMIT FUNCTION =====
+  const submitToSanity = async (data: any) => {
+    try {
+      await fetch("/api/post-consultation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+    } catch (error) {
+      console.error("Submission failed", error);
+    }
+  };
 
   return (
     <>
@@ -19,11 +47,14 @@ export default function Page() {
           />
 
           {/* Right Button - Teal */}
-          <button className="bg-[#14967F] text-white px-4 py-1.5 rounded-full text-[11px] md:text-xs font-bold uppercase tracking-wide shadow-md">
+          <button
+           onClick={() => setOpenAppointment(true)}
+          className="bg-[#14967F] text-white px-4 py-1.5 rounded-full text-[11px] md:text-xs font-bold uppercase tracking-wide shadow-md">
             Book Now
           </button>
         </div>
       </div>
+
 {/* HEADER SPACER — MUST MATCH HEADER HEIGHT */}
 <div className="h-[60px]"></div>
 
@@ -42,75 +73,59 @@ export default function Page() {
   <div className="col-span-1 flex flex-col justify-start mt-0">
 
     {/* Heading — EXACT mobile match */}
-    <h1
-      className="
-       font-extrabold text-black
+            <h1
+  className="
+    font-extrabold text-black
 
-    /* FLUID MOBILE HEADING */
+    /* MOBILE — DO NOT TOUCH */
     text-[clamp(15px,4.2vw,18px)]
     leading-[1.28]
     mb-2
 
-    /* DESKTOP (unchanged) */
-    md:text-[32px]
-    lg:text-[42px]
-    md:leading-[1.1]
+    /* DESKTOP FIX */
+    md:text-[30px]        /* ↓ reduced from 32 */
+    lg:text-[38px]        /* ↓ reduced from 42 */
+    md:leading-[1.15]
     md:mb-4
-      "
-    >
-      Permanent Surgery for
-      <br />
-      Lipoma in{" "}
-      <span className="text-[#2563EB]">Delhi-NCR</span>
-    </h1>
+    md:max-w-[520px]      /* 👈 forces 2-line wrap */
+  "
+>
+  Permanent Surgery for
+  <br className="hidden md:block" />
+  Lipoma in{" "}
+  <span className="text-[#2563EB]">Pune</span>
+</h1>
+
 
     {/* Bullet List */}
-    <ul className="space-y-1 text-black mb-3">
+   <ul className="space-y-2 text-black mb-3">
 
-  <li className="flex items-start gap-2">
-    <span className="text-[#14967F] text-[14px] leading-none mt-[6px]">●</span>
-    <span
-      className="
-        font-medium
-        text-[clamp(12px,3.4vw,13px)]   /* ✅ fluid text */
-        leading-[1.35]
-        whitespace-nowrap               /* ✅ force single line */
-      "
+  {[
+    "50% Off on Surgery",
+    "30 Minutes Procedure",
+    "All Insurance Accepted"
+  ].map((text, i) => (
+    <li
+      key={i}
+      className="flex items-center gap-2"
     >
-     50% Off on Surgery
-    </span>
-  </li>
+      {/* PERFECT DOT */}
+      <span className="w-[6px] h-[6px] bg-[#14967F] rounded-full shrink-0" />
 
-  <li className="flex items-start gap-2">
-    <span className="text-[#14967F] text-[14px] leading-none mt-[6px]">●</span>
-    <span
-      className="
-        font-medium
-        text-[clamp(12px,3.4vw,13px)]
-        leading-[1.35]
-        whitespace-nowrap
-      "
-    >
-     30 Minutes Procedure
-    </span>
-  </li>
-
-  <li className="flex items-start gap-2">
-    <span className="text-[#14967F] text-[14px] leading-none mt-[6px]">●</span>
-    <span
-      className="
-        font-medium
-        text-[clamp(12px,3.4vw,13px)]
-        leading-[1.35]
-        whitespace-nowrap
-      "
-    >
-     All Insurance Accepted
-    </span>
-  </li>
+      {/* TEXT */}
+      <span
+        className="
+          font-medium
+          text-[clamp(12px,3.4vw,13px)]
+          leading-[1.35]
+        "
+      >
+        {text}
+      </span>
+    </li>
+  ))}
 
 </ul>
-
 
     {/* FREE CONSULTATION */}
     <div className="
@@ -142,8 +157,7 @@ export default function Page() {
   </div>
 
   {/* COL 2: IMAGE */}
-{/* COL 2: IMAGE */}
-<div
+  <div
   className="
     col-span-1
     flex justify-center items-center
@@ -167,7 +181,7 @@ export default function Page() {
 </div>
 
   {/* COL 3: FORM */}
-  <div className="
+   <div className="
     col-span-2 lg:col-span-1
     w-full mt-2 lg:mt-0
     bg-[#E0F7FA] lg:bg-white
@@ -176,24 +190,49 @@ export default function Page() {
     border border-teal-100 lg:border-none
   ">
     <h2 className="text-[18px] lg:text-2xl font-extrabold text-black mb-3 text-center lg:text-left">
-      Get Rid of Lipoma
+      Surgery Cost Calculator
     </h2>
 
     <input
       type="text"
       placeholder="Your Name *"
+       value={heroForm.name}
+            onChange={(e) =>
+              setHeroForm({ ...heroForm, name: e.target.value })
+            }
       className="w-full bg-white border border-gray-300 rounded-full px-4 py-3 mb-3 outline-none text-sm text-gray-700 focus:border-[#14967F] shadow-sm"
     />
 
     <input
       type="text"
       placeholder="Mobile Number *"
+      value={heroForm.phone}
+            onChange={(e) =>
+              setHeroForm({ ...heroForm, phone: e.target.value })
+            }
       className="w-full bg-white border border-gray-300 rounded-full px-4 py-3 mb-4 outline-none text-sm text-gray-700 focus:border-[#14967F] shadow-sm"
     />
 
-    <button className="w-full bg-[#14967F] text-white font-bold py-3 rounded-full text-[16px] shadow hover:opacity-90 transition">
-      Get a Call Back
+    <button
+    onClick={async () => {
+              if (!heroForm.name || !heroForm.phone) return;
+              await submitToSanity({
+                name: heroForm.name,
+                phone: heroForm.phone,
+                disease: "Lipoma",
+                source: "lipoma-calculator",
+              });
+              setHeroSubmitted(true);
+              setHeroForm({ name: "", phone: "" });
+            }}
+    className="w-full bg-[#14967F] text-white font-bold py-3 rounded-full text-[16px] shadow hover:opacity-90 transition">
+      Calculate Now
     </button>
+     {heroSubmitted && (
+            <p className="mt-2 text-center text-sm text-green-600 font-medium">
+              ✅ Thank you! Our team will contact you shortly.
+            </p>
+          )}
   </div>
 
 </section>
@@ -336,13 +375,20 @@ export default function Page() {
             </div>
 
             {/* RIGHT FORM */}
-            <div className="flex justify-center lg:justify-end">
+             <div className="flex justify-center lg:justify-end">
               <div className="w-full max-w-[520px] bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.1)] p-10 border border-gray-100">
 
                 <label className="text-sm font-medium text-gray-700 mb-1 block">Your Name *</label>
                 <input
                   type="text"
                   placeholder="Your name"
+                  value={appointmentForm.name}
+                 onChange={(e) =>
+                  setAppointmentForm({
+                  ...appointmentForm,
+                  name: e.target.value,
+                })
+              }
                   className="w-full border border-gray-300 rounded-xl px-4 py-3 mb-5 outline-none shadow-sm focus:border-[#14967F]"
                 />
 
@@ -350,15 +396,39 @@ export default function Page() {
                 <input
                   type="text"
                   placeholder="+91 1112223333"
+                   value={appointmentForm.phone}
+              onChange={(e) =>
+                setAppointmentForm({
+                  ...appointmentForm,
+                  phone: e.target.value,
+                })
+              }
                   className="w-full border border-gray-300 rounded-xl px-4 py-3 mb-6 outline-none shadow-sm focus:border-[#14967F]"
                 />
 
-                <button className="w-full bg-[#14967F] text-white font-semibold py-3 rounded-xl text-lg shadow hover:opacity-95 transition">
+                <button 
+                 onClick={async () => {
+                if (!appointmentForm.name || !appointmentForm.phone) return;
+                await submitToSanity({
+                  name: appointmentForm.name,
+                  phone: appointmentForm.phone,
+                  disease: "Lipoma",
+                  source: "lipoma-appointment",
+                });
+                setAppointmentSubmitted(true);
+                setAppointmentForm({ name: "", phone: "" });
+              }}
+                className="w-full bg-[#14967F] text-white font-semibold py-3 rounded-xl text-lg shadow hover:opacity-95 transition">
                   Book Appointment Now
                 </button>
-
+ {appointmentSubmitted && (
+              <p className="mt-3 text-center text-sm text-green-600 font-medium">
+                ✅ Appointment request submitted successfully.
+              </p>
+            )}
               </div>
             </div>
+
 
           </div>
 
@@ -533,7 +603,7 @@ export default function Page() {
 
             {/* Left Image - Smaller for mobile match */}
             <img 
-              src="/assets/doctors/DrRaj.png" 
+              src="/assets/doctors/Dr. Manoj.png" 
               className="w-[70px] h-[70px] lg:w-[180px] lg:h-[180px] rounded-full object-cover mt-1 shrink-0"
             />
 
@@ -543,7 +613,7 @@ export default function Page() {
               {/* Name & Rating */}
               <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start">
                 <h3 className="text-[15px] lg:text-2xl font-extrabold text-black leading-tight flex flex-wrap items-center gap-1">   
-               Dr. Raj Kumar Singh
+               Dr. Manoj Dinkar Pawar
                   <span className="inline-flex items-center gap-0.5 bg-white lg:bg-transparent">
                      <span className="text-orange-500 text-xs lg:text-xl">★</span>
                      <span className="text-black text-xs lg:text-base font-semibold">5</span>
@@ -552,24 +622,24 @@ export default function Page() {
 
                 {/* Desktop Location */}
                 <p className="hidden lg:flex text-gray-700 items-center gap-1 text-[16px]">
-                  <span className="text-orange-500 text-xl">📍</span>  Delhi & NCR
+                  <span className="text-orange-500 text-xl">📍</span> Pune
                 </p>
               </div>
 
               {/* Qualification */}
               <p className="mt-1 text-gray-600 text-[11px] lg:text-[17px] font-medium leading-[1.3]">
-                General Surgeon,Proctologist,Laparoscopic Surgeon
-                MBBS, MS - General Surgery
+               Plastic and Reconstructive Surgeon
+              MBBS, MS General Surgery, MCh Plastic and Reconstructive Surgery, DNB Plastic Surgery
               </p>
               
               {/* Experience */}
               <p className="text-gray-600 text-[11px] lg:text-[17px] font-medium leading-[1.3]">
-                11+ Years Experience Overall
+                19+ Years Experience Overall
               </p>
 
               {/* Mobile Location */}
               <p className="lg:hidden mt-1 text-gray-600 flex items-center gap-1 text-[11px] font-medium">
-                <span className="text-orange-500 text-sm">📍</span> Delhi & NCR
+                <span className="text-orange-500 text-sm">📍</span> Pune
               </p>
 
               {/* Button - COMPACT & FIXED */}
@@ -584,7 +654,7 @@ export default function Page() {
 
             {/* Left Image */}
             <img 
-              src="/assets/doctors/dr.sahil.webp" 
+              src="/assets/doctors/Dr. Surajsinh.png" 
               className="w-[70px] h-[70px] lg:w-[180px] lg:h-[180px] rounded-full object-cover mt-1 shrink-0"
             />
 
@@ -594,7 +664,7 @@ export default function Page() {
               {/* Name & Rating */}
               <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start">
                 <h3 className="text-[15px] lg:text-2xl font-extrabold text-black leading-tight flex flex-wrap items-center gap-1">
-                 Dr. Sahil Singla
+                Dr. Surajsinh Chauhan
                   <span className="inline-flex items-center gap-0.5 bg-white lg:bg-transparent">
                      <span className="text-orange-500 text-xs lg:text-xl">★</span>
                      <span className="text-black text-xs lg:text-base font-semibold">5</span>
@@ -603,23 +673,25 @@ export default function Page() {
 
                 {/* Desktop Location */}
                 <p className="hidden lg:flex text-gray-700 items-center gap-1 text-[16px]">
-                  <span className="text-orange-500 text-xl">📍</span> Bangalore
+                  <span className="text-orange-500 text-xl">📍</span>Pune
                 </p>
               </div>
 
               {/* Qualification */}
               <p className="mt-1 text-gray-600 text-[11px] lg:text-[17px] font-medium leading-[1.3]">
-                Plastic Surgeon MBBS, DNB General Surgery, DNB Plastic Surgery,
+                Aesthetics and Plastic Surgeon
+                MBBS, MS, DNB- Plastic Surgery
               </p>
+             
 
               {/* Experience */}
               <p className="text-gray-600 text-[11px] lg:text-[17px] font-medium leading-[1.3]">
-                14+ Years Experience Overall
+                18+ Years Experience Overall
               </p>
 
               {/* Mobile Location */}
               <p className="lg:hidden mt-1 text-gray-600 flex items-center gap-1 text-[11px] font-medium">
-                <span className="text-orange-500 text-sm">📍</span> Bangalore
+                <span className="text-orange-500 text-sm">📍</span> Pune
               </p>
 
               {/* Button - COMPACT & FIXED */}
@@ -640,7 +712,7 @@ export default function Page() {
 
             {/* ===== IMAGE ===== */}
             <div className="order-2 md:order-1 w-full flex justify-center md:justify-start">
-              <img
+             <img
                 src="/assets/diseases/lipomanew.png"
                 alt="Gynecomastia"
                 className="w-[160px] md:w-[200px] lg:w-[230px] object-contain"
@@ -656,7 +728,6 @@ export default function Page() {
 
               <p className="text-[17px] md:text-[19px] text-gray-700 leading-[1.8] font-medium">
                A lipoma is a slow-growing, fatty lump that&apos;s situated between your skin and the underlying muscle layer.
-
               </p>
 
             </div>
@@ -813,6 +884,7 @@ export default function Page() {
 
 
 {/* 🌟 3. GET FREE DOCTOR CONSULTATION SECTION */}
+{!openAppointment && (
 <section
   className="
     w-full bg-[#062D4C]
@@ -840,6 +912,7 @@ export default function Page() {
     </h2>
 
     <button
+     onClick={() => setOpenAppointment(true)}
       className="
         bg-[#14967F] text-white font-semibold
         px-6 py-2.5
@@ -853,6 +926,31 @@ export default function Page() {
     </button>
   </div>
 </section>
+)}
+
+<Modal
+  opened={openAppointment}
+  onClose={() => setOpenAppointment(false)}
+  centered
+  size="xl"
+  padding={0}
+  radius="lg"
+  withCloseButton={false}
+  overlayProps={{ blur: 3 }}
+  styles={{
+    content: {
+      maxHeight: "90vh",
+      overflow: "hidden",
+    },
+    body: {
+      padding: 0,
+      maxHeight: "90vh",
+      overflowY: "auto",
+    },
+  }}
+>
+  <Appointment onSuccess={() => setOpenAppointment(false)} />
+</Modal>
 
 
     </>
