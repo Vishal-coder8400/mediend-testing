@@ -643,7 +643,9 @@ export default function Page() {
               </p>
 
               {/* Button - COMPACT & FIXED */}
-              <button className="mt-3 lg:mt-6 w-full bg-[#14967F] text-white text-[12px] lg:text-lg font-bold py-2 lg:py-4 rounded-full shadow-sm hover:opacity-90 transition">
+              <button
+              onClick={() => setOpenAppointment(true)}
+              className="mt-3 lg:mt-6 w-full bg-[#14967F] text-white text-[12px] lg:text-lg font-bold py-2 lg:py-4 rounded-full shadow-sm hover:opacity-90 transition">
                 Book Appointment Now
               </button>
             </div>
@@ -693,7 +695,9 @@ export default function Page() {
               </p>
 
               {/* Button - COMPACT & FIXED */}
-              <button className="mt-3 lg:mt-6 w-full bg-[#14967F] text-white text-[12px] lg:text-lg font-bold py-2 lg:py-4 rounded-full shadow-sm hover:opacity-90 transition">
+              <button 
+              onClick={() => setOpenAppointment(true)}
+              className="mt-3 lg:mt-6 w-full bg-[#14967F] text-white text-[12px] lg:text-lg font-bold py-2 lg:py-4 rounded-full shadow-sm hover:opacity-90 transition">
                 Book Appointment Now
               </button>
             </div>
