@@ -880,8 +880,7 @@ export default function Page() {
 
 {/* ⭐ Mobile safety spacer so footer doesn't hide sticky bar */}
 {/* MOBILE SAFETY SPACER — PREVENTS FIXED CTA OVERLAP */}
-<div className="h-[120px] md:h-0"></div>
-
+<div className="block md:hidden h-[110px]"></div>
 
 {/* 🌟 3. GET FREE DOCTOR CONSULTATION SECTION */}
 {!openAppointment && (
