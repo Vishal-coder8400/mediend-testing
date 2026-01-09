@@ -948,7 +948,7 @@ export default function Page() {
     },
   }}
 >
-  <Appointment onSuccess={() => setOpenAppointment(false)} />
+  <Appointment />
 </Modal>
 
 
