@@ -155,9 +155,19 @@ interface InfoCard {
 }
 
 export default function Page() {
-  const params = useParams()
-const { departmentName } = params
-const cardBackgrounds = ["#D7E4F2", "#FFEBD9"];
+export default function Page() {
+  const params = useParams();
+
+  const rawDepartment = params?.departmentName;
+  const departmentName =
+    typeof rawDepartment === "string"
+      ? rawDepartment.toLowerCase()
+      : Array.isArray(rawDepartment)
+      ? rawDepartment[0].toLowerCase()
+      : "";
+
+  const cardBackgrounds = ["#D7E4F2", "#FFEBD9"];
+
 
  
 const [pageData, setPageData] = useState<Department>()
@@ -168,6 +178,7 @@ const [modalOpened, { open: modalOpen, close: modalClose }] =
 useDisclosure(false);
 
 useEffect(() => {
+   if (!departmentName) return;
   setIsLoading(true)
   fetch(`https://7rljkuk3.apicdn.sanity.io/v2022-03-07/data/query/production?query=*%5B_type+%3D%3D+%27department%27+%26%26+slug.current+%3D%3D+%22${departmentName}%22%5D%7B%0A++title%2C%0A++header%2C%0A++shortDescription%2C%0A++backlinks%2C%0A++%22slug%22%3Aslug.current%2C%0A++%22imageUrl%22%3A+headerImage.asset-%3Eurl%2C%0A++%22specialities%22%3Aspecialities%5B%5D%7B%0A++++%22iconUrl%22%3A+icon.asset-%3Eurl%2C%0A++++title%2C%0A++++description%0A++%7D%2C%0A++doctors%5B%5D-%3E%7B%0A++++title%2C%0A++++%22imageUrl%22%3Aimage.asset-%3Eurl%2C%0A++++degrees%2C%0A++++speciality%2C%0A++++yearsOfExperience%2C%0A++++%22slug%22%3Aslug.current%0A++++%0A++%7D%2C%0A++++disease%5B%5D-%3E%7B%0A++++++title%2C%0A++++++%22slug%22%3Aslug.current%2C%0A++++++%22imageUrl%22%3AheaderImage.asset-%3Eurl%2C%0A++++++shortDescription%0A++++%7D%2C%0A++content%2C%0A++infoCards%2C%0A++reviews%2C%0A++faqs%2C%0A++additionalContent1%2C%0A++additionalContent2%0A%7D%5B0%5D%0A`, {
     method: "GET",
