@@ -33,7 +33,7 @@ const surgeryItems = [
 ];
 
 const quickLinks = [
-  // { label: "About Us", link: "/about-us" },
+  { label: "About Us", link: "/about-us" },
   { label: "Our Doctors", link: "/doctor" },
   { label: "Blogs", link: "/blogs" },
   { label: "Careers", link: "/careers" },
@@ -208,18 +208,23 @@ const Footer = () => {
                       Quick Links
                     </Text>
                   </Box>
-                  {quickLinks.map(
-                    (el: { label: string; link: string }, index: number) => (
-                      <Text
-                        component={Link}
-                        href={el.link}
-                        style={{ display: "block" }}
-                        key={index}
-                      >
-                        {el.label}
-                      </Text>
-                    )
-                  )}
+                         {quickLinks.map(
+  (el: { label: string; link: string }, index: number) => {
+    // Hide About Us on desktop
+    if (el.label === "About Us" && mobile) return null;
+
+    return (
+      <Text
+        component={Link}
+        href={el.link}
+        style={{ display: "block" }}
+        key={index}
+      >
+        {el.label}
+      </Text>
+    );
+  }
+)}
                 </Box>
                 {/* <Box className={classes.patients}>
                   <Box className={classes.middle__box_upper}>

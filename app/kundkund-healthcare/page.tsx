@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import {
   FaUserMd,
@@ -8,16 +9,17 @@ import {
   FaHeadset,
 } from "react-icons/fa";
 import { HiOutlineLocationMarker, HiOutlineCalendar } from "react-icons/hi";
-import { FiUsers } from "react-icons/fi";
+import { FiAlertCircle, FiUsers ,FiMapPin, FiPhone, FiMail, FiClock} from "react-icons/fi";
+
 
 
 export default function KundkundHealthcarePage() {
   return (
     <>
       {/* ================= HERO SECTION ================= */}
-     <section className="relative w-full min-h-[60vh] md:min-h-[85vh] flex items-center overflow-hidden">
+  <section className="relative w-full min-h-[60vh] md:min-h-[85vh] flex items-center overflow-hidden">
 
-        {/* BACKGROUND */}
+  {/* BACKGROUND */}
   <div className="absolute inset-0 -z-10">
     <Image
       src="/assets/herobox/hero-surgery1.png"
@@ -29,109 +31,171 @@ export default function KundkundHealthcarePage() {
     <div className="absolute inset-0 bg-gradient-to-r from-white/85 via-white/65 to-white/30" />
   </div>
 
-        {/* CONTENT */}
-<div
-  className="
-    relative
-    w-full
-    px-5 sm:px-6 lg:px-8
-    pt-10 sm:pt-20 md:pt-28
-    text-left
-  "
->
+  {/* CONTENT WRAPPER */}
+  <div
+    className="
+      relative
+      w-full
+      px-5 sm:px-6 lg:px-8
+      pt-10 sm:pt-20 md:pt-28
+    "
+  >
+    <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
 
+      {/* LEFT CONTENT */}
+      <div className="max-w-2xl">
 
-          <div className="max-w-2xl">
+        {/* BADGE */}
+        <span
+          className="
+            inline-flex
+            items-center
+            gap-2
+            mb-6
+            px-4 sm:px-10 lg:px-16
+            py-2 sm:py-2.5
+            rounded-full
+            bg-[#062D4C]
+            text-white
+            text-sm sm:text-lg lg:text-xl
+            font-semibold
+            whitespace-nowrap
+            overflow-hidden
+            text-ellipsis
+          "
+        >
+          ● POWERED BY KUNDKUND HEALTHCARE
+        </span>
 
-            {/* BADGE */}
-            <span
-              className="
-                inline-flex items-center gap-2
-                mb-6
-                px-4 py-1.5
-                rounded-full
-                bg-[#062D4C]
-                text-white
-                text-xs
-                font-medium
-              "
-            >
-              ● POWERED BY KUNDKUND HEALTHCARE
-            </span>
+        {/* HEADING */}
+        <h1
+          className="
+            text-[#062D4C]
+            font-semibold
+            leading-[1.1]
+            text-[36px]
+            sm:text-[42px]
+            md:text-[48px]
+            lg:text-[56px]
+          "
+        >
+          mediEND — Trusted Surgical Care,
+          <br />
+          <span className="text-[#14967F]">
+            Simplified & Accessible
+          </span>
+        </h1>
 
-            {/* HEADING */}
-            <h1
-              className="
-                text-[#062D4C]
-                font-semibold
-                leading-[1.1]
-                text-[36px]
-                sm:text-[42px]
-                md:text-[48px]
-                lg:text-[56px]
-              "
-            >
-              mediEND — Trusted Surgical Care,
-              <br />
-              <span className="text-[#14967F]">
-                Simplified & Accessible
-              </span>
-            </h1>
+        {/* DESCRIPTION */}
+        <p
+          className="
+            mt-6
+            text-[#4B5563]
+            text-[15px]
+            sm:text-[16px]
+            max-w-xl
+          "
+        >
+          Expert surgeons, personalized care, and hassle-free surgical
+          solutions — powered by Kundkund Healthcare.
+        </p>
 
-            {/* DESCRIPTION */}
-            <p
-              className="
-                mt-6
-                text-[#4B5563]
-                text-[15px]
-                sm:text-[16px]
-                max-w-xl
-              "
-            >
-              Expert surgeons, personalized care, and hassle-free surgical
-              solutions — powered by Kundkund Healthcare.
-            </p>
+        {/* CTA BUTTONS */}
+        <div className="mt-10 flex flex-wrap mb-4 gap-4">
+          <button
+            className="
+              bg-[#14967F]
+              hover:bg-[#12806D]
+              text-white
+              px-7 py-3.5
+              rounded-lg
+              text-sm
+              font-semibold
+              shadow-md
+              transition
+            "
+          >
+            Book Free Consultation
+          </button>
 
-            {/* CTA BUTTONS */}
-            <div className="mt-10 flex flex-wrap gap-4">
-              <button
-                className="
-                  bg-[#14967F]
-                  hover:bg-[#12806D]
-                  text-white
-                  px-7 py-3.5
-                  rounded-lg
-                  text-sm
-                  font-semibold
-                  shadow-md
-                  transition
-                "
-              >
-                Book Free Consultation
-              </button>
-
-              <button
-                className="
-                  flex items-center gap-2
-                  bg-white
-                  border border-[#E5E7EB]
-                  text-[#062D4C]
-                  px-7 py-3.5
-                  rounded-lg
-                  text-sm
-                  font-semibold
-                  shadow-sm
-                  hover:bg-[#F9FAFB]
-                  transition
-                "
-              >
-                📞 +91 87503 00099
-              </button>
-            </div>
-
-          </div>
+          <a
+            href="tel:+918750300099"
+            className="
+              flex items-center gap-2
+              bg-white
+              border border-[#E5E7EB]
+              text-[#062D4C]
+              px-7 py-3.5
+              rounded-lg
+              text-sm
+              font-semibold
+              shadow-sm
+              hover:bg-[#F9FAFB]
+              transition
+            "
+          >
+            📞 +91 87503 00099
+          </a>
         </div>
-      </section>
+      </div>
+
+      {/* RIGHT WHATSAPP HELP CARD */}
+      <div className="hidden lg:flex justify-end">
+        <div
+          className="
+            bg-white
+            rounded-2xl
+            shadow-xl
+            border border-[#E5E7EB]
+            p-8
+            max-w-sm
+            w-full
+          "
+        >
+          <h3 className="text-[#062D4C] font-semibold text-xl">
+            Need Help?
+          </h3>
+
+          <p className="mt-3 text-sm text-[#4B5563]">
+            Chat with our care team on WhatsApp for instant assistance, surgery cost,
+            and appointment booking.
+          </p>
+
+          <a
+            href="https://wa.me/918750300099?text=Hi%2C%20I%20need%20help%20with%20surgical%20services."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="
+              mt-6
+              flex
+              items-center
+              justify-center
+              gap-2
+              w-full
+              bg-[#14967F]
+              hover:bg-[#12806D]
+              text-white
+              py-3
+              rounded-lg
+              text-sm
+              font-semibold
+              shadow-md
+              transition
+            "
+          >
+            Chat on WhatsApp
+          </a>
+
+          <p className="mt-4 text-xs text-center text-[#6B7280]">
+            +91 87503 00099
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 
       {/* ================= TRUST STATS BAR ================= */}
 <section className="w-full mt-6 sm:mt-10 md:mt-16">
@@ -323,147 +387,150 @@ export default function KundkundHealthcarePage() {
       </p>
     </div>
 
+
     {/* SERVICES GRID */}
     <div
       className="
         mt-12
         grid grid-cols-1
         sm:grid-cols-2
-        lg:grid-cols-3
+        md:grid-cols-3
+        lg:grid-cols-4
         gap-6
       "
     >
-      {/* CARD 1 */}
-      <div className="bg-white rounded-xl overflow-hidden border border-[#E5EAF2] shadow-sm hover:shadow-md transition cursor-pointer">
-        <Image
-          src="/assets/specialities/aesthetics.png"
-          alt="Aesthetics Surgery"
-          width={400}
-          height={240}
-          className="w-full h-[170px] object-cover"
-        />
-        <div className="p-4 flex flex-col">
-          <h4 className="text-[#062D4C] font-semibold text-base">
-            Aesthetics Surgery
-          </h4>
-          <p className="mt-2 text-sm text-[#4B5563]">
-            Advanced cosmetic and aesthetic surgical procedures.
-          </p>
-          <button className="mt-3 text-sm font-semibold text-[#14967F] hover:underline self-start">
-            Explore details or request cost estimate →
-          </button>
-        </div>
-      </div>
+      {[
+        {
+          title: "Aesthetics",
+          slug: "aesthetics",
+          img: "/assets/specialities/aesthetics.png",
+          p1: "Enhance your appearance with advanced aesthetic procedures designed for natural, confident results.",
+          p2: "Our expert surgeons focus on precision, safety, and personalized cosmetic care."
+        },
+        {
+          title: "Ophthalmology",
+          slug: "ophthalmology",
+          img: "/assets/specialities/ophthalmology.png",
+          p1: "Comprehensive eye care solutions for clear vision and long-term eye health.",
+          p2: "We offer advanced surgical treatments using modern technology and experienced specialists."
+        },
+        {
+          title: "Proctology",
+          slug: "proctology",
+          img: "/assets/specialities/proctology2.png",
+          p1: "Effective treatment for piles, fissures, fistula, and other anorectal conditions.",
+          p2: "Our minimally invasive procedures ensure faster recovery and maximum comfort."
+        },
+        {
+          title: "Laparoscopy",
+          slug: "laparoscopy",
+          img: "/assets/specialities/Laparoscopy1.png",
+          p1: "Minimally invasive laparoscopic surgeries for faster healing and reduced pain.",
+          p2: "We deliver precise surgical outcomes with shorter hospital stays and quick recovery."
+        },
+        {
+          title: "Urology",
+          slug: "urology",
+          img: "/assets/specialities/urology2.png",
+          p1: "Advanced care for urinary and male reproductive system disorders.",
+          p2: "Our urology specialists provide accurate diagnosis and minimally invasive treatments."
+        },
+        {
+          title: "Orthopedics",
+          slug: "orthopedics",
+          img: "/assets/specialities/orthopedics1.png",
+          p1: "Expert treatment for bone, joint, and spine conditions.",
+          p2: "We help restore mobility and improve quality of life through advanced orthopedic care."
+        },
+        {
+          title: "Vascular",
+          slug: "vascular",
+          img: "/assets/specialities/vascular1.png",
+          p1: "Specialized care for vein and vascular disorders using modern techniques.",
+          p2: "Our treatments focus on improving circulation, comfort, and long-term vascular health."
+        },
+        {
+          title: "ENT",
+          slug: "ent",
+          img: "/assets/specialities/ENT1.png",
+          p1: "Complete care for ear, nose, and throat conditions under one roof.",
+          p2: "Our specialists ensure accurate diagnosis and effective surgical solutions."
+        },
+        {
+          title: "Gynecology",
+          slug: "gynaecology",
+          img: "/assets/specialities/gynaecology1.png",
+          p1: "Comprehensive women’s healthcare with advanced gynecological procedures.",
+          p2: "We focus on safe, compassionate, and personalized treatment at every stage of life."
+        },
+        {
+          title: "Fertility",
+          slug: "fertility",
+          img: "/assets/specialities/fertility1.png",
+          p1: "Advanced fertility treatments designed to support your journey to parenthood.",
+          p2: "Our experts offer personalized care using proven reproductive technologies."
+        },
+        {
+          title: "Weight Loss",
+          slug: "weight-loss",
+          img: "/assets/specialities/weight-loss.png",
+          p1: "Medically supervised weight-loss surgeries for long-term, sustainable results.",
+          p2: "We help you achieve better health, confidence, and improved lifestyle outcomes."
+        }
+      ].map((card, index) => (
+        <div
+  key={index}
+  className="
+    bg-white
+    rounded-xl
+    overflow-hidden
+    border border-[#E5EAF2]
+    shadow-sm
+    hover:shadow-lg
+    transition
+    group
+    cursor-pointer
+  "
+>
+  <Image
+    src={card.img}
+    alt={card.title}
+    width={400}
+    height={220}
+    className="
+      w-full
+      h-[140px]
+      sm:h-[160px]
+      object-cover
+      transition
+      duration-300
+      group-hover:scale-105
+    "
+  />
 
-      {/* CARD 2 */}
-      <div className="bg-white rounded-xl overflow-hidden border border-[#E5EAF2] shadow-sm hover:shadow-md transition cursor-pointer">
-        <Image
-          src="/assets/specialities/gynecomastia.png"
-          alt="Gynecomastia & Lipoma"
-          width={400}
-          height={240}
-          className="w-full h-[170px] object-cover"
-        />
-        <div className="p-4 flex flex-col">
-          <h4 className="text-[#062D4C] font-semibold text-base">
-            Gynecomastia & Lipoma
-          </h4>
-          <p className="mt-2 text-sm text-[#4B5563]">
-            Safe and effective treatment for gynecomastia and lipoma conditions.
-          </p>
-          <button className="mt-3 text-sm font-semibold text-[#14967F] hover:underline self-start">
-            Explore details or request cost estimate →
-          </button>
-        </div>
-      </div>
+  <div className="p-3 flex flex-col h-full">
+    <h4 className="text-[#062D4C] font-semibold text-base">
+      {card.title}
+    </h4>
 
-      {/* CARD 3 */}
-      <div className="bg-white rounded-xl overflow-hidden border border-[#E5EAF2] shadow-sm hover:shadow-md transition cursor-pointer">
-        <Image
-          src="/assets/specialities/laser.png"
-          alt="Laser & Ophthalmic"
-          width={400}
-          height={240}
-          className="w-full h-[170px] object-cover"
-        />
-        <div className="p-4 flex flex-col">
-          <h4 className="text-[#062D4C] font-semibold text-base">
-            Laser & Ophthalmic
-          </h4>
-          <p className="mt-2 text-sm text-[#4B5563]">
-            Modern laser and eye care procedures with advanced technology.
-          </p>
-          <button className="mt-3 text-sm font-semibold text-[#14967F] hover:underline self-start">
-            Explore details or request cost estimate →
-          </button>
-        </div>
-      </div>
+    <p className="mt-1.5 text-sm text-[#4B5563] leading-snug">
+      {card.p1}
+    </p>
 
-      {/* CARD 4 */}
-      <div className="bg-white rounded-xl overflow-hidden border border-[#E5EAF2] shadow-sm hover:shadow-md transition cursor-pointer">
-        <Image
-          src="/assets/specialities/proctology1.png"
-          alt="Proctology & Laparoscopy"
-          width={400}
-          height={240}
-          className="w-full h-[170px] object-cover"
-        />
-        <div className="p-4 flex flex-col">
-          <h4 className="text-[#062D4C] font-semibold text-base">
-            Proctology & Laparoscopy
-          </h4>
-          <p className="mt-2 text-sm text-[#4B5563]">
-            Minimally invasive proctology and laparoscopic surgeries.
-          </p>
-          <button className="mt-3 text-sm font-semibold text-[#14967F] hover:underline self-start">
-            Explore details or request cost estimate →
-          </button>
-        </div>
-      </div>
+    <p className="mt-1.5 text-sm text-[#4B5563] leading-snug">
+      {card.p2}
+    </p>
 
-      {/* CARD 5 */}
-      <div className="bg-white rounded-xl overflow-hidden border border-[#E5EAF2] shadow-sm hover:shadow-md transition cursor-pointer">
-        <Image
-          src="/assets/specialities/orthopedics.png"
-          alt="Orthopedics & ENT"
-          width={400}
-          height={240}
-          className="w-full h-[170px] object-cover"
-        />
-        <div className="p-4 flex flex-col">
-          <h4 className="text-[#062D4C] font-semibold text-base">
-            Orthopedics & ENT
-          </h4>
-          <p className="mt-2 text-sm text-[#4B5563]">
-            Specialized bone, joint, and ENT surgical care.
-          </p>
-          <button className="mt-3 text-sm font-semibold text-[#14967F] hover:underline self-start">
-            Explore details or request cost estimate →
-          </button>
-        </div>
-      </div>
+    <Link
+      href={`/department/${card.slug}`}
+      className="mt-3 text-sm font-semibold text-[#14967F] hover:underline self-start"
+    >
+      Explore details or request cost estimate →
+    </Link>
+  </div>
+</div>
 
-      {/* CARD 6 */}
-      <div className="bg-white rounded-xl overflow-hidden border border-[#E5EAF2] shadow-sm hover:shadow-md transition cursor-pointer">
-        <Image
-          src="/assets/specialities/urology1.png"
-          alt="Urology & Gynecology"
-          width={400}
-          height={240}
-          className="w-full h-[170px] object-cover"
-        />
-        <div className="p-4 flex flex-col">
-          <h4 className="text-[#062D4C] font-semibold text-base">
-            Urology & Gynecology
-          </h4>
-          <p className="mt-2 text-sm text-[#4B5563]">
-            Comprehensive urology and gynecology surgical solutions.
-          </p>
-          <button className="mt-3 text-sm font-semibold text-[#14967F] hover:underline self-start">
-            Explore details or request cost estimate →
-          </button>
-        </div>
-      </div>
+      ))}
     </div>
 
   </div>
@@ -676,6 +743,7 @@ export default function KundkundHealthcarePage() {
 
 
 {/* ================= SURGICAL COST CALCULATOR ================= */}
+{/* ================= SURGICAL COST CALCULATOR ================= */}
 <section className="w-full bg-[#062D4C] py-14 sm:py-18 md:py-24">
   <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
 
@@ -710,6 +778,50 @@ export default function KundkundHealthcarePage() {
 
         {/* FORM */}
         <div className="mt-6 space-y-4">
+
+          {/* NAME */}
+          <div>
+            <label className="block text-sm font-medium text-[#062D4C] mb-1">
+              Full Name
+            </label>
+            <input
+              type="text"
+              placeholder=""
+              className="
+                w-full
+                border border-[#E5E7EB]
+                rounded-lg
+                px-4 py-2.5
+                text-sm
+                focus:outline-none
+                focus:ring-2
+                focus:ring-[#14967F]
+              "
+            />
+          </div>
+
+          {/* PHONE */}
+          <div>
+            <label className="block text-sm font-medium text-[#062D4C] mb-1">
+              Phone Number
+            </label>
+            <input
+              type="tel"
+              placeholder=""
+              maxLength={10}
+              className="
+                w-full
+                border border-[#E5E7EB]
+                rounded-lg
+                px-4 py-2.5
+                text-sm
+                focus:outline-none
+                focus:ring-2
+                focus:ring-[#14967F]
+              "
+            />
+          </div>
+
           {/* PROCEDURE */}
           <div>
             <label className="block text-sm font-medium text-[#062D4C] mb-1">
@@ -727,12 +839,12 @@ export default function KundkundHealthcarePage() {
                 focus:ring-[#14967F]
               "
             >
-              <option>Aesthetic Surgery</option>
-              <option>Gynecomastia</option>
-              <option>Laser Surgery</option>
-              <option>Proctology</option>
-              <option>Orthopedics</option>
-              <option>Urology</option>
+              <option value="Aesthetic Surgery">Aesthetic Surgery</option>
+              <option value="Gynecomastia">Gynecomastia</option>
+              <option value="Laser Surgery">Laser Surgery</option>
+              <option value="Proctology">Proctology</option>
+              <option value="Orthopedics">Orthopedics</option>
+              <option value="Urology">Urology</option>
             </select>
           </div>
 
@@ -744,6 +856,8 @@ export default function KundkundHealthcarePage() {
             <input
               type="number"
               placeholder="e.g. 35"
+              min="1"
+              max="120"
               className="
                 w-full
                 border border-[#E5E7EB]
@@ -775,7 +889,10 @@ export default function KundkundHealthcarePage() {
           </button>
 
           {/* WHATSAPP CTA */}
-          <button
+          <a
+            href="https://wa.me/918750300099?text=Hi%2C%20I%20would%20like%20to%20get%20an%20estimated%20surgery%20cost.%20Here%20are%20my%20details%3A"
+            target="_blank"
+            rel="noopener noreferrer"
             className="
               w-full
               border
@@ -794,7 +911,8 @@ export default function KundkundHealthcarePage() {
             "
           >
             💬 Instant WhatsApp Quote
-          </button>
+          </a>
+
         </div>
       </div>
     </div>
@@ -904,7 +1022,6 @@ export default function KundkundHealthcarePage() {
 
 
 {/* ================= CONTACT & LOCATION ================= */}
-{/* ================= CONTACT & LOCATION ================= */}
 <section className="w-full bg-white py-14 sm:py-18 md:py-24">
   <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
 
@@ -912,27 +1029,26 @@ export default function KundkundHealthcarePage() {
 
       {/* LEFT: CONTACT INFO */}
       <div>
-        <h2
-          className="
-            text-[#062D4C]
-            font-semibold
-            text-[26px]
-            sm:text-[30px]
-            md:text-[36px]
-          "
-        >
+        <h2 className="text-[#062D4C] font-semibold text-[26px] sm:text-[30px] md:text-[36px]">
           Contact & Location
         </h2>
 
-        <ul className="mt-6 space-y-4 text-sm sm:text-[15px] text-[#4B5563]">
-          <li>
-            📍 <span className="font-medium text-[#062D4C]">mediEND Hospital Office</span>
-            <br />
-            H-166, Sector 63, Noida, Uttar Pradesh
+        <ul className="mt-6 space-y-5 text-sm sm:text-[15px] text-[#4B5563]">
+
+          <li className="flex items-start gap-3">
+            <FiMapPin className="text-[#14967F] text-lg mt-1" />
+            <div>
+              <span className="font-medium text-[#062D4C]">
+                mediEND Hospital Office
+              </span>
+              <br />
+              H-166, Sector 63, Noida, Uttar Pradesh
+            </div>
           </li>
 
-          <li>
-            📞 <span className="font-medium text-[#062D4C]">Phone:</span>{" "}
+          <li className="flex items-center gap-3">
+            <FiPhone className="text-[#14967F] text-lg" />
+            <span className="font-medium text-[#062D4C]">Phone:</span>
             <a
               href="tel:+918750300099"
               className="text-[#14967F] hover:underline"
@@ -941,8 +1057,9 @@ export default function KundkundHealthcarePage() {
             </a>
           </li>
 
-          <li>
-            📧 <span className="font-medium text-[#062D4C]">Email:</span>{" "}
+          <li className="flex items-center gap-3">
+            <FiMail className="text-[#14967F] text-lg" />
+            <span className="font-medium text-[#062D4C]">Email:</span>
             <a
               href="mailto:info@mediend.com"
               className="text-[#14967F] hover:underline"
@@ -951,17 +1068,28 @@ export default function KundkundHealthcarePage() {
             </a>
           </li>
 
-          <li>
-            🕘 <span className="font-medium text-[#062D4C]">Business Hours:</span>
-            <br />
-            Mon–Sat: 9 AM – 7 PM
+          <li className="flex items-start gap-3">
+            <FiClock className="text-[#14967F] text-lg mt-1" />
+            <div>
+              <span className="font-medium text-[#062D4C]">
+                Business Hours:
+              </span>
+              <br />
+              Mon–Sat: 9 AM – 7 PM
+            </div>
           </li>
 
-          <li>
-            🚨 <span className="font-medium text-[#062D4C]">Emergency Support:</span>
-            <br />
-            24/7 emergency support available
+          <li className="flex items-start gap-3">
+            <FiAlertCircle className="text-[#14967F] text-lg mt-1" />
+            <div>
+              <span className="font-medium text-[#062D4C]">
+                Emergency Support:
+              </span>
+              <br />
+              24/7 emergency support available
+            </div>
           </li>
+
         </ul>
       </div>
 
@@ -980,9 +1108,9 @@ export default function KundkundHealthcarePage() {
       </div>
 
     </div>
-
   </div>
 </section>
+
 
 
 
