@@ -155,7 +155,6 @@ interface InfoCard {
 }
 
 export default function Page() {
-export default function Page() {
   const params = useParams();
 
   const rawDepartment = params?.departmentName;
