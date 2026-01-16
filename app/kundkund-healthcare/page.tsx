@@ -521,10 +521,11 @@ export default function KundkundHealthcarePage() {
       {card.p2}
     </p>
 
-    <Link
-      href={`/department/${card.slug}`}
-      className="mt-3 text-sm font-semibold text-[#14967F] hover:underline self-start"
-    >
+   <Link
+  href={`/department/${encodeURIComponent(card.slug.toLowerCase())}`}
+  className="mt-3 text-sm font-semibold text-[#14967F] hover:underline self-start"
+>
+
       Explore details or request cost estimate →
     </Link>
   </div>
@@ -1110,9 +1111,6 @@ export default function KundkundHealthcarePage() {
     </div>
   </div>
 </section>
-
-
-
 
     </>
   );
