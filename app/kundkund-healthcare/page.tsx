@@ -1043,7 +1043,7 @@ export default function KundkundHealthcarePage() {
           min-w-[85%]
           sm:min-w-[60%]
           lg:min-w-[32%]
-          bg-[#F9FAFB]
+          bg-[#DEE6F3]
           rounded-xl
           p-6
           border border-[#E5EAF2]
@@ -1061,7 +1061,7 @@ export default function KundkundHealthcarePage() {
           min-w-[85%]
           sm:min-w-[60%]
           lg:min-w-[32%]
-          bg-[#F9FAFB]
+          bg-[#DEE6F3]
           rounded-xl
           p-6
           border border-[#E5EAF2]
@@ -1079,7 +1079,7 @@ export default function KundkundHealthcarePage() {
           min-w-[85%]
           sm:min-w-[60%]
           lg:min-w-[32%]
-          bg-[#F9FAFB]
+          bg-[#DEE6F3]
           rounded-xl
           p-6
           border border-[#E5EAF2]
