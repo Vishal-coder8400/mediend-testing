@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import {
   FaUserMd,
   FaWallet,
@@ -10,10 +10,14 @@ import {
 } from "react-icons/fa";
 import { HiOutlineLocationMarker, HiOutlineCalendar } from "react-icons/hi";
 import { FiAlertCircle, FiUsers ,FiMapPin, FiPhone, FiMail, FiClock} from "react-icons/fi";
+import { Modal } from "@mantine/core";
+import Appointment from "../components/Appointment/Appointment";
+
 
 
 
 export default function KundkundHealthcarePage() {
+   const [openAppointment, setOpenAppointment] = useState(false);
   return (
     <>
       {/* ================= HERO SECTION ================= */}
@@ -103,6 +107,7 @@ export default function KundkundHealthcarePage() {
         {/* CTA BUTTONS */}
         <div className="mt-10 flex flex-wrap mb-4 gap-4">
           <button
+          onClick={() => setOpenAppointment(true)}
             className="
               bg-[#14967F]
               hover:bg-[#12806D]
@@ -119,7 +124,9 @@ export default function KundkundHealthcarePage() {
           </button>
 
           <a
-            href="tel:+918750300099"
+             href="https://wa.me/918750300099?text=Hi%2C%20I%20need%20help%20with%20surgical%20services."
+            target="_blank"
+             rel="noopener noreferrer"
             className="
               flex items-center gap-2
               bg-white
@@ -153,12 +160,11 @@ export default function KundkundHealthcarePage() {
           "
         >
           <h3 className="text-[#062D4C] font-semibold text-xl">
-            Need Help?
+            Your Surgical Journey Starts Here
           </h3>
 
           <p className="mt-3 text-sm text-[#4B5563]">
-            Chat with our care team on WhatsApp for instant assistance, surgery cost,
-            and appointment booking.
+           Connect instantly with mediEND’s care experts on WhatsApp for surgeon consultation, treatment details, and hassle-free appointment booking—powered by Kundkund Healthcare.
           </p>
 
           <a
@@ -183,7 +189,7 @@ export default function KundkundHealthcarePage() {
               transition
             "
           >
-            Chat on WhatsApp
+            Start WhatsApp Chat
           </a>
 
           <p className="mt-4 text-xs text-center text-[#6B7280]">
@@ -267,6 +273,72 @@ export default function KundkundHealthcarePage() {
     </div>
   </div>
 </section>
+
+
+{/* ================= COMPANY OVERVIEW ================= */}
+{/* ================= COMPANY OVERVIEW ================= */}
+<section className="w-full bg-[#ECF1FB] py-12 sm:py-16 md:py-20">
+  <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+
+    <div className="max-w-3xl mx-auto bg-white rounded-xl p-5 sm:p-7 border border-[#E5EAF2] shadow-sm">
+
+      <h2
+        className="
+          text-[#062D4C]
+          font-semibold
+          text-[24px]
+          sm:text-[28px]
+          md:text-[32px]
+          text-center
+        "
+      >
+        KUNDKUND HEALTHCARE PRIVATE LIMITED
+      </h2>
+
+      <div
+        className="
+          mt-5
+          text-[#4B5563]
+          text-sm
+          sm:text-[14px]
+          leading-snug
+          space-y-4
+          text-left
+        "
+      >
+        <p>
+          <span className="font-semibold">KUNDKUND HEALTHCARE PRIVATE LIMITED</span> is a dynamic healthcare services
+          company incorporated on 8th December 2022, registered with the
+          RoC-Kanpur and based in Vasundhara, Ghaziabad, Uttar Pradesh. Built on a
+          foundation of integrity and compliance, the company focuses on
+          delivering dependable value through ethical practices and long-term
+          stakeholder relationships. As a privately held entity, it is committed
+          to enhancing healthcare access and outcomes across India.
+        </p>
+
+        <p>
+          A key initiative under the company’s umbrella is{" "}
+          <span className="font-semibold">mediEND</span>, a specialized healthcare
+          brand powered by KUNDKUND HEALTHCARE. mediEND is dedicated to providing
+          advanced, affordable, and hassle-free surgical care with a strong
+          patient-centric approach. Through mediEND, patients gain access to a
+          broad network of qualified surgeons, personalized consultations, and
+          comprehensive care from diagnosis through post-operative recovery.
+          The platform’s mission is to simplify surgical journeys, making safe
+          and modern surgical services more accessible for everyone. Guided by
+          experienced leadership and a commitment to innovation, KUNDKUND
+          HEALTHCARE and its mediEND brand continue to reshape how surgical care
+          is delivered — combining technology with compassion for better patient
+          outcomes.
+        </p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
 
 {/* ================= WORLD-CLASS CARE SECTION ================= */}
 <section className="w-full bg-white py-14 sm:py-18 md:py-24">
@@ -1111,6 +1183,31 @@ export default function KundkundHealthcarePage() {
     </div>
   </div>
 </section>
+
+
+<Modal
+  opened={openAppointment}
+  onClose={() => setOpenAppointment(false)}
+  centered
+  size="xl"
+  padding={0}
+  radius="lg"
+  withCloseButton={false}
+  overlayProps={{ blur: 3 }}
+  styles={{
+    content: {
+      maxHeight: "90vh",
+      overflow: "hidden",
+    },
+    body: {
+      padding: 0,
+      maxHeight: "90vh",
+      overflowY: "auto",
+    },
+  }}
+>
+  <Appointment />
+</Modal>
 
     </>
   );
