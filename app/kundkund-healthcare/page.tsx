@@ -475,14 +475,14 @@ export default function KundkundHealthcarePage() {
         {
           title: "Aesthetics",
           slug: "aesthetics",
-          img: "/assets/specialities/aesthetics.png",
+          img: "/assets/specialities/aesthetics2.png",
           p1: "Enhance your appearance with advanced aesthetic procedures designed for natural, confident results.",
           p2: "Our expert surgeons focus on precision, safety, and personalized cosmetic care."
         },
         {
           title: "Ophthalmology",
           slug: "ophthalmology",
-          img: "/assets/specialities/ophthalmology.png",
+          img: "/assets/specialities/ophthalmology2.png",
           p1: "Comprehensive eye care solutions for clear vision and long-term eye health.",
           p2: "We offer advanced surgical treatments using modern technology and experienced specialists."
         },
@@ -510,28 +510,28 @@ export default function KundkundHealthcarePage() {
         {
           title: "Orthopedics",
           slug: "orthopedics",
-          img: "/assets/specialities/orthopedics1.png",
+          img: "/assets/specialities/orthopedics3.png",
           p1: "Expert treatment for bone, joint, and spine conditions.",
           p2: "We help restore mobility and improve quality of life through advanced orthopedic care."
         },
         {
           title: "Vascular",
           slug: "vascular",
-          img: "/assets/specialities/vascular1.png",
+          img: "/assets/specialities/vascular2.png",
           p1: "Specialized care for vein and vascular disorders using modern techniques.",
           p2: "Our treatments focus on improving circulation, comfort, and long-term vascular health."
         },
         {
           title: "ENT",
           slug: "ent",
-          img: "/assets/specialities/ENT1.png",
+          img: "/assets/specialities/ENT2.png",
           p1: "Complete care for ear, nose, and throat conditions under one roof.",
           p2: "Our specialists ensure accurate diagnosis and effective surgical solutions."
         },
         {
           title: "Gynecology",
           slug: "gynaecology",
-          img: "/assets/specialities/gynaecology1.png",
+          img: "/assets/specialities/gynaecology2.png",
           p1: "Comprehensive women’s healthcare with advanced gynecological procedures.",
           p2: "We focus on safe, compassionate, and personalized treatment at every stage of life."
         },
@@ -545,7 +545,7 @@ export default function KundkundHealthcarePage() {
         {
           title: "Weight Loss",
           slug: "weight-loss",
-          img: "/assets/specialities/weight-loss.png",
+          img: "/assets/specialities/weight-loss1.png",
           p1: "Medically supervised weight-loss surgeries for long-term, sustainable results.",
           p2: "We help you achieve better health, confidence, and improved lifestyle outcomes."
         }
@@ -564,21 +564,23 @@ export default function KundkundHealthcarePage() {
     cursor-pointer
   "
 >
-  <Image
-    src={card.img}
-    alt={card.title}
-    width={400}
-    height={220}
-    className="
-      w-full
-      h-[140px]
-      sm:h-[160px]
-      object-cover
-      transition
-      duration-300
-      group-hover:scale-105
-    "
-  />
+ <Image
+  src={card.img}
+  alt={card.title}
+  width={400}
+  height={220}
+  className="
+    w-full
+    h-[140px]
+    sm:h-[160px]
+    object-cover
+    object-top
+    transition
+    duration-300
+    group-hover:scale-105
+  "
+/>
+
 
   <div className="p-3 flex flex-col h-full">
     <h4 className="text-[#062D4C] font-semibold text-base">
