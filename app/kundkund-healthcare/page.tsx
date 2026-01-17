@@ -17,7 +17,68 @@ import Appointment from "../components/Appointment/Appointment";
 
 
 export default function KundkundHealthcarePage() {
-   const [openAppointment, setOpenAppointment] = useState(false);
+   const [openAppointment, setOpenAppointment] = useState(false); 
+   const [status, setStatus] = useState("idle") 
+const [statusMessage, setStatusMessage] = useState("")
+const [formData, setFormData] = useState({
+  name: "",
+  phone: "",
+  procedure: "",
+  age: ""
+})
+
+const GOOGLE_SHEET_API =process.env.NEXT_PUBLIC_GOOGLE_SHEET_API
+
+const handleChange = (e) => {
+  setFormData({
+    ...formData,
+    [e.target.name]: e.target.value
+  })
+}
+
+const handleSubmit = async (e) => {
+  e.preventDefault()
+
+  setStatus("loading")
+  setStatusMessage("Submitting your details...")
+
+  try {
+    const response = await fetch(GOOGLE_SHEET_API, {
+      method: "POST",
+      body: JSON.stringify(formData)
+    })
+
+    const result = await response.json()
+
+    if (result.success) {
+      setStatus("success")
+      setStatusMessage("✅ Thank you! Your request has been submitted. Our care team will contact you shortly.")
+
+      setFormData({
+        name: "",
+        phone: "",
+        procedure: "",
+        age: ""
+      })
+
+      // Auto hide message after 5 seconds
+      setTimeout(() => {
+        setStatus("idle")
+        setStatusMessage("")
+      }, 5000)
+    } else {
+      setStatus("error")
+      setStatusMessage("❌ Something went wrong. Please try again.")
+    }
+  } catch (err) {
+    setStatus("error")
+    setStatusMessage("❌ Network error. Please check your connection and try again.")
+  }
+}
+
+
+
+   
   return (
     <>
       {/* ================= HERO SECTION ================= */}
@@ -852,7 +913,7 @@ export default function KundkundHealthcarePage() {
         </div>
 
         {/* FORM */}
-        <div className="mt-6 space-y-4">
+        <form className="mt-6 space-y-4">
 
           {/* NAME */}
           <div>
@@ -861,7 +922,10 @@ export default function KundkundHealthcarePage() {
             </label>
             <input
               type="text"
-              placeholder=""
+              name="name"
+              value={formData.name}
+              onChange={handleChange}
+              required
               className="
                 w-full
                 border border-[#E5E7EB]
@@ -882,8 +946,11 @@ export default function KundkundHealthcarePage() {
             </label>
             <input
               type="tel"
-              placeholder=""
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
               maxLength={10}
+              required
               className="
                 w-full
                 border border-[#E5E7EB]
@@ -903,6 +970,10 @@ export default function KundkundHealthcarePage() {
               Select Procedure
             </label>
             <select
+              name="procedure"
+              value={formData.procedure}
+              onChange={handleChange}
+              required
               className="
                 w-full
                 border border-[#E5E7EB]
@@ -914,12 +985,18 @@ export default function KundkundHealthcarePage() {
                 focus:ring-[#14967F]
               "
             >
+              <option value="">Select Procedure</option>
               <option value="Aesthetic Surgery">Aesthetic Surgery</option>
               <option value="Gynecomastia">Gynecomastia</option>
               <option value="Laser Surgery">Laser Surgery</option>
               <option value="Proctology">Proctology</option>
               <option value="Orthopedics">Orthopedics</option>
               <option value="Urology">Urology</option>
+              <option value="Ophthalmology">Ophthalmology</option>
+              <option value="ENT">ENT</option>
+              <option value="Gynecology">Gynecology</option>
+              <option value="Fertility">Fertility</option>
+              <option value="Weight Loss">Weight Loss</option>
             </select>
           </div>
 
@@ -930,9 +1007,12 @@ export default function KundkundHealthcarePage() {
             </label>
             <input
               type="number"
-              placeholder="e.g. 35"
+              name="age"
+              value={formData.age}
+              onChange={handleChange}
               min="1"
               max="120"
+              required
               className="
                 w-full
                 border border-[#E5E7EB]
@@ -948,24 +1028,60 @@ export default function KundkundHealthcarePage() {
 
           {/* PRIMARY CTA */}
           <button
-            className="
+            type="button"
+            onClick={handleSubmit}
+            disabled={status === "loading"}
+            className={`
               w-full
-              bg-[#14967F]
-              hover:bg-[#12806D]
-              text-white
               py-3
               rounded-lg
               text-sm
               font-semibold
               transition
-            "
+              ${
+                status === "loading"
+                  ? "bg-gray-400 cursor-not-allowed"
+                  : "bg-[#14967F] hover:bg-[#12806D] text-white"
+              }
+            `}
           >
-            Get Estimated Surgery Cost
+            {status === "loading"
+              ? "Submitting..."
+              : "Get Estimated Surgery Cost"}
           </button>
+
+          {/* CONFIRMATION MESSAGE */}
+          {statusMessage && (
+            <div
+              className={`
+                mt-3
+                text-sm
+                text-center
+                rounded-lg
+                px-4
+                py-2
+                ${
+                  status === "success"
+                    ? "bg-green-50 text-green-700 border border-green-200"
+                    : status === "error"
+                    ? "bg-red-50 text-red-700 border border-red-200"
+                    : "bg-blue-50 text-blue-700 border border-blue-200"
+                }
+              `}
+            >
+              {statusMessage}
+            </div>
+          )}
 
           {/* WHATSAPP CTA */}
           <a
-            href="https://wa.me/918750300099?text=Hi%2C%20I%20would%20like%20to%20get%20an%20estimated%20surgery%20cost.%20Here%20are%20my%20details%3A"
+            href={`https://wa.me/918750300099?text=Hi%2C%20I%20would%20like%20to%20get%20an%20estimated%20surgery%20cost.%0A%0AName%3A%20${encodeURIComponent(
+              formData.name
+            )}%0APhone%3A%20${encodeURIComponent(
+              formData.phone
+            )}%0AProcedure%3A%20${encodeURIComponent(
+              formData.procedure
+            )}%0AAge%3A%20${encodeURIComponent(formData.age)}`}
             target="_blank"
             rel="noopener noreferrer"
             className="
@@ -988,7 +1104,7 @@ export default function KundkundHealthcarePage() {
             💬 Instant WhatsApp Quote
           </a>
 
-        </div>
+        </form>
       </div>
     </div>
 
