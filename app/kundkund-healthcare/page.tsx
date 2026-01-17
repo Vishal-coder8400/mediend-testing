@@ -28,6 +28,8 @@ const [formData, setFormData] = useState({
 })
 
 const GOOGLE_SHEET_API =process.env.NEXT_PUBLIC_GOOGLE_SHEET_API
+console.log("API:", GOOGLE_SHEET_API)
+
 
 const handleChange = (
   e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -46,8 +48,9 @@ const handleSubmit = async (
   e.preventDefault()
 
   if (!GOOGLE_SHEET_API) {
+    console.error("API missing:", GOOGLE_SHEET_API)
     setStatus("error")
-    setStatusMessage("API not configured. Please contact support.")
+    setStatusMessage("❌ API not configured. Please contact support.")
     return
   }
 
@@ -55,13 +58,16 @@ const handleSubmit = async (
   setStatusMessage("Submitting your details...")
 
   try {
-    const response = await fetch(GOOGLE_SHEET_API, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(formData)
-    })
+   const response = await fetch(GOOGLE_SHEET_API, {
+  method: "POST",
+  body: JSON.stringify({
+    ...formData,
+    source: "mediEND Website",
+    page: typeof window !== "undefined" ? window.location.href : "",
+    timestamp: new Date().toISOString()
+  })
+})
+
 
     const result = await response.json()
 
@@ -78,21 +84,22 @@ const handleSubmit = async (
         age: ""
       })
 
-      // Auto-hide success message
       setTimeout(() => {
         setStatus("idle")
         setStatusMessage("")
       }, 5000)
     } else {
-      throw new Error(result.error || "Submission failed")
+      throw new Error("Submission failed")
     }
-  } catch {
+  } catch (err) {
+    console.error("Submit error:", err)
     setStatus("error")
     setStatusMessage(
       "❌ Network error. Please check your connection and try again."
     )
   }
 }
+
 
 
 
@@ -911,6 +918,8 @@ const handleSubmit = async (
           p-6
           sm:p-8
           shadow-lg
+          relative
+          z-10
         "
       >
         {/* HEADER */}
@@ -931,10 +940,7 @@ const handleSubmit = async (
         </div>
 
         {/* FORM */}
-        <form
-          onSubmit={handleSubmit}
-          className="mt-6 space-y-4"
-        >
+        <form onSubmit={handleSubmit} className="mt-6 space-y-4">
 
           {/* NAME */}
           <div>
@@ -946,6 +952,7 @@ const handleSubmit = async (
               name="name"
               value={formData.name}
               onChange={handleChange}
+              autoComplete="name"
               required
               className="
                 w-full
@@ -971,6 +978,8 @@ const handleSubmit = async (
               value={formData.phone}
               onChange={handleChange}
               maxLength={10}
+              inputMode="numeric"
+              pattern="[0-9]*"
               required
               className="
                 w-full
@@ -1133,7 +1142,6 @@ const handleSubmit = async (
 
 
 
-
 {/* ================= PATIENT TESTIMONIALS ================= */}
 <section className="w-full bg-white py-14 sm:py-18 md:py-24">
   <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
@@ -1232,7 +1240,6 @@ const handleSubmit = async (
 
   </div>
 </section>
-
 
 
 {/* ================= CONTACT & LOCATION ================= */}
