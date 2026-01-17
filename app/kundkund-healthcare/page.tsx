@@ -29,15 +29,27 @@ const [formData, setFormData] = useState({
 
 const GOOGLE_SHEET_API =process.env.NEXT_PUBLIC_GOOGLE_SHEET_API
 
-const handleChange = (e) => {
-  setFormData({
-    ...formData,
-    [e.target.name]: e.target.value
-  })
+const handleChange = (
+  e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+) => {
+  const { name, value } = e.target
+
+  setFormData((prev) => ({
+    ...prev,
+    [name]: value
+  }))
 }
 
-const handleSubmit = async (e) => {
+const handleSubmit = async (
+  e: React.FormEvent<HTMLFormElement>
+) => {
   e.preventDefault()
+
+  if (!GOOGLE_SHEET_API) {
+    setStatus("error")
+    setStatusMessage("API not configured. Please contact support.")
+    return
+  }
 
   setStatus("loading")
   setStatusMessage("Submitting your details...")
@@ -45,6 +57,9 @@ const handleSubmit = async (e) => {
   try {
     const response = await fetch(GOOGLE_SHEET_API, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
       body: JSON.stringify(formData)
     })
 
@@ -52,7 +67,9 @@ const handleSubmit = async (e) => {
 
     if (result.success) {
       setStatus("success")
-      setStatusMessage("✅ Thank you! Your request has been submitted. Our care team will contact you shortly.")
+      setStatusMessage(
+        "✅ Thank you! Your request has been submitted. Our care team will contact you shortly."
+      )
 
       setFormData({
         name: "",
@@ -61,18 +78,19 @@ const handleSubmit = async (e) => {
         age: ""
       })
 
-      // Auto hide message after 5 seconds
+      // Auto-hide success message
       setTimeout(() => {
         setStatus("idle")
         setStatusMessage("")
       }, 5000)
     } else {
-      setStatus("error")
-      setStatusMessage("❌ Something went wrong. Please try again.")
+      throw new Error(result.error || "Submission failed")
     }
-  } catch (err) {
+  } catch {
     setStatus("error")
-    setStatusMessage("❌ Network error. Please check your connection and try again.")
+    setStatusMessage(
+      "❌ Network error. Please check your connection and try again."
+    )
   }
 }
 
@@ -880,236 +898,167 @@ const handleSubmit = async (e) => {
 
 {/* ================= SURGICAL COST CALCULATOR ================= */}
 {/* ================= SURGICAL COST CALCULATOR ================= */}
-<section className="w-full bg-[#062D4C] py-14 sm:py-18 md:py-24">
-  <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+<form onSubmit={handleSubmit} className="mt-6 space-y-4">
 
-    <div className="flex justify-center">
-      <div
-        className="
-          w-full
-          max-w-xl
-          bg-white
-          rounded-2xl
-          p-6
-          sm:p-8
-          shadow-lg
-        "
-      >
-        {/* HEADER */}
-        <div className="text-center">
-          <h3
-            className="
-              text-[#062D4C]
-              font-semibold
-              text-[22px]
-              sm:text-[24px]
-            "
-          >
-            Surgical Cost Calculator
-          </h3>
-          <p className="mt-2 text-sm text-[#4B5563]">
-            Get estimated surgery cost in seconds
-          </p>
-        </div>
-
-        {/* FORM */}
-        <form className="mt-6 space-y-4">
-
-          {/* NAME */}
-          <div>
-            <label className="block text-sm font-medium text-[#062D4C] mb-1">
-              Full Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-              className="
-                w-full
-                border border-[#E5E7EB]
-                rounded-lg
-                px-4 py-2.5
-                text-sm
-                focus:outline-none
-                focus:ring-2
-                focus:ring-[#14967F]
-              "
-            />
-          </div>
-
-          {/* PHONE */}
-          <div>
-            <label className="block text-sm font-medium text-[#062D4C] mb-1">
-              Phone Number
-            </label>
-            <input
-              type="tel"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              maxLength={10}
-              required
-              className="
-                w-full
-                border border-[#E5E7EB]
-                rounded-lg
-                px-4 py-2.5
-                text-sm
-                focus:outline-none
-                focus:ring-2
-                focus:ring-[#14967F]
-              "
-            />
-          </div>
-
-          {/* PROCEDURE */}
-          <div>
-            <label className="block text-sm font-medium text-[#062D4C] mb-1">
-              Select Procedure
-            </label>
-            <select
-              name="procedure"
-              value={formData.procedure}
-              onChange={handleChange}
-              required
-              className="
-                w-full
-                border border-[#E5E7EB]
-                rounded-lg
-                px-4 py-2.5
-                text-sm
-                focus:outline-none
-                focus:ring-2
-                focus:ring-[#14967F]
-              "
-            >
-              <option value="">Select Procedure</option>
-              <option value="Aesthetic Surgery">Aesthetic Surgery</option>
-              <option value="Gynecomastia">Gynecomastia</option>
-              <option value="Laser Surgery">Laser Surgery</option>
-              <option value="Proctology">Proctology</option>
-              <option value="Orthopedics">Orthopedics</option>
-              <option value="Urology">Urology</option>
-              <option value="Ophthalmology">Ophthalmology</option>
-              <option value="ENT">ENT</option>
-              <option value="Gynecology">Gynecology</option>
-              <option value="Fertility">Fertility</option>
-              <option value="Weight Loss">Weight Loss</option>
-            </select>
-          </div>
-
-          {/* AGE */}
-          <div>
-            <label className="block text-sm font-medium text-[#062D4C] mb-1">
-              Enter Approx. Age
-            </label>
-            <input
-              type="number"
-              name="age"
-              value={formData.age}
-              onChange={handleChange}
-              min="1"
-              max="120"
-              required
-              className="
-                w-full
-                border border-[#E5E7EB]
-                rounded-lg
-                px-4 py-2.5
-                text-sm
-                focus:outline-none
-                focus:ring-2
-                focus:ring-[#14967F]
-              "
-            />
-          </div>
-
-          {/* PRIMARY CTA */}
-          <button
-            type="button"
-            onClick={handleSubmit}
-            disabled={status === "loading"}
-            className={`
-              w-full
-              py-3
-              rounded-lg
-              text-sm
-              font-semibold
-              transition
-              ${
-                status === "loading"
-                  ? "bg-gray-400 cursor-not-allowed"
-                  : "bg-[#14967F] hover:bg-[#12806D] text-white"
-              }
-            `}
-          >
-            {status === "loading"
-              ? "Submitting..."
-              : "Get Estimated Surgery Cost"}
-          </button>
-
-          {/* CONFIRMATION MESSAGE */}
-          {statusMessage && (
-            <div
-              className={`
-                mt-3
-                text-sm
-                text-center
-                rounded-lg
-                px-4
-                py-2
-                ${
-                  status === "success"
-                    ? "bg-green-50 text-green-700 border border-green-200"
-                    : status === "error"
-                    ? "bg-red-50 text-red-700 border border-red-200"
-                    : "bg-blue-50 text-blue-700 border border-blue-200"
-                }
-              `}
-            >
-              {statusMessage}
-            </div>
-          )}
-
-          {/* WHATSAPP CTA */}
-          <a
-            href={`https://wa.me/918750300099?text=Hi%2C%20I%20would%20like%20to%20get%20an%20estimated%20surgery%20cost.%0A%0AName%3A%20${encodeURIComponent(
-              formData.name
-            )}%0APhone%3A%20${encodeURIComponent(
-              formData.phone
-            )}%0AProcedure%3A%20${encodeURIComponent(
-              formData.procedure
-            )}%0AAge%3A%20${encodeURIComponent(formData.age)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
-              w-full
-              border
-              border-[#14967F]
-              text-[#14967F]
-              py-3
-              rounded-lg
-              text-sm
-              font-semibold
-              hover:bg-[#ECFDF5]
-              transition
-              flex
-              items-center
-              justify-center
-              gap-2
-            "
-          >
-            💬 Instant WhatsApp Quote
-          </a>
-
-        </form>
-      </div>
-    </div>
-
+  {/* NAME */}
+  <div>
+    <label className="block text-sm font-medium text-[#062D4C] mb-1">
+      Full Name
+    </label>
+    <input
+      type="text"
+      name="name"
+      value={formData.name}
+      onChange={handleChange}
+      required
+      className="
+        w-full
+        border border-[#E5E7EB]
+        rounded-lg
+        px-4 py-2.5
+        text-sm
+        focus:outline-none
+        focus:ring-2
+        focus:ring-[#14967F]
+      "
+    />
   </div>
-</section>
+
+  {/* PHONE */}
+  <div>
+    <label className="block text-sm font-medium text-[#062D4C] mb-1">
+      Phone Number
+    </label>
+    <input
+      type="tel"
+      name="phone"
+      value={formData.phone}
+      onChange={handleChange}
+      maxLength={10}
+      required
+      className="
+        w-full
+        border border-[#E5E7EB]
+        rounded-lg
+        px-4 py-2.5
+        text-sm
+        focus:outline-none
+        focus:ring-2
+        focus:ring-[#14967F]
+      "
+    />
+  </div>
+
+  {/* PROCEDURE */}
+  <div>
+    <label className="block text-sm font-medium text-[#062D4C] mb-1">
+      Select Procedure
+    </label>
+    <select
+      name="procedure"
+      value={formData.procedure}
+      onChange={handleChange}
+      required
+      className="
+        w-full
+        border border-[#E5E7EB]
+        rounded-lg
+        px-4 py-2.5
+        text-sm
+        focus:outline-none
+        focus:ring-2
+        focus:ring-[#14967F]
+      "
+    >
+      <option value="">Select Procedure</option>
+      <option value="Aesthetic Surgery">Aesthetic Surgery</option>
+      <option value="Gynecomastia">Gynecomastia</option>
+      <option value="Laser Surgery">Laser Surgery</option>
+      <option value="Proctology">Proctology</option>
+      <option value="Orthopedics">Orthopedics</option>
+      <option value="Urology">Urology</option>
+      <option value="Ophthalmology">Ophthalmology</option>
+      <option value="ENT">ENT</option>
+      <option value="Gynecology">Gynecology</option>
+      <option value="Fertility">Fertility</option>
+      <option value="Weight Loss">Weight Loss</option>
+    </select>
+  </div>
+
+  {/* AGE */}
+  <div>
+    <label className="block text-sm font-medium text-[#062D4C] mb-1">
+      Enter Approx. Age
+    </label>
+    <input
+      type="number"
+      name="age"
+      value={formData.age}
+      onChange={handleChange}
+      min="1"
+      max="120"
+      required
+      className="
+        w-full
+        border border-[#E5E7EB]
+        rounded-lg
+        px-4 py-2.5
+        text-sm
+        focus:outline-none
+        focus:ring-2
+        focus:ring-[#14967F]
+      "
+    />
+  </div>
+
+  {/* SUBMIT BUTTON */}
+  <button
+    type="submit"
+    disabled={status === "loading"}
+    className={`
+      w-full
+      py-3
+      rounded-lg
+      text-sm
+      font-semibold
+      transition
+      ${
+        status === "loading"
+          ? "bg-gray-400 cursor-not-allowed"
+          : "bg-[#14967F] hover:bg-[#12806D] text-white"
+      }
+    `}
+  >
+    {status === "loading"
+      ? "Submitting..."
+      : "Get Estimated Surgery Cost"}
+  </button>
+
+  {/* CONFIRMATION MESSAGE */}
+  {statusMessage && (
+    <div
+      className={`
+        mt-3
+        text-sm
+        text-center
+        rounded-lg
+        px-4
+        py-2
+        ${
+          status === "success"
+            ? "bg-green-50 text-green-700 border border-green-200"
+            : status === "error"
+            ? "bg-red-50 text-red-700 border border-red-200"
+            : "bg-blue-50 text-blue-700 border border-blue-200"
+        }
+      `}
+    >
+      {statusMessage}
+    </div>
+  )}
+
+</form>
+
 
 
 {/* ================= PATIENT TESTIMONIALS ================= */}
@@ -1210,6 +1159,7 @@ const handleSubmit = async (e) => {
 
   </div>
 </section>
+
 
 
 {/* ================= CONTACT & LOCATION ================= */}
